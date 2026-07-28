@@ -19,7 +19,7 @@ from sqlalchemy.orm import sessionmaker
 from app.core.database import Base, get_db
 from app.main import app
 from app.models import User
-from app.core.security import get_password_hash
+from app.core.security import hash_password
 
 # Build a dedicated engine for the test database.
 _test_engine = create_engine(
