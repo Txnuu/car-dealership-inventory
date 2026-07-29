@@ -3,6 +3,14 @@
 A full-stack Car Dealership Inventory System built as a TDD interview kata.  
 Users can browse, search, and purchase vehicles. Admins can fully manage the inventory.
 
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| **Frontend** | [car-dealership-inventory-one.vercel.app](https://car-dealership-inventory-one.vercel.app) |
+| **Backend API** | [car-dealership-api-ytuh.onrender.com](https://car-dealership-api-ytuh.onrender.com) |
+| **API Docs** | [Swagger UI](https://car-dealership-api-ytuh.onrender.com/docs) |
+
 ## Tech Stack
 
 | Layer            | Technology                            |
