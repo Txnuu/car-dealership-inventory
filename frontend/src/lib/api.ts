@@ -29,6 +29,7 @@ export interface Vehicle {
   category: string;
   price: number;
   quantity: number;
+  image_url?: string;
 }
 
 export interface AuthUser {

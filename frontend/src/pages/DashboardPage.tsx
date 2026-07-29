@@ -126,6 +126,19 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {!loading && vehicles.length > 0 && (
+          <div className="mb-8 overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 to-slate-700 p-8 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-slate-300">Welcome back, {user?.username}</p>
+                <h2 className="mt-1 text-2xl font-bold">Find Your Perfect Ride</h2>
+                <p className="mt-2 text-slate-300">Browse our collection of {vehicles.length} vehicles</p>
+              </div>
+              <Car className="h-16 w-16 text-slate-500" />
+            </div>
+          </div>
+        )}
+
         <form onSubmit={handleSearch} className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative flex-1">
@@ -219,7 +232,7 @@ export default function DashboardPage() {
             <p className="text-sm text-slate-400">Try adjusting your search or filters</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {vehicles.map((v) => (
               <VehicleCard
                 key={v.id}
@@ -243,7 +256,7 @@ export default function DashboardPage() {
 }
 
 function AddVehicleModal({ onClose, onAdded }: { onClose: () => void; onAdded: () => void }) {
-  const [form, setForm] = useState({ make: '', model: '', category: '', price: '', quantity: '' });
+  const [form, setForm] = useState({ make: '', model: '', category: '', price: '', quantity: '', image_url: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -258,6 +271,7 @@ function AddVehicleModal({ onClose, onAdded }: { onClose: () => void; onAdded: (
         category: form.category,
         price: parseFloat(form.price),
         quantity: parseInt(form.quantity, 10),
+        image_url: form.image_url || undefined,
       });
       onAdded();
       onClose();
@@ -284,6 +298,16 @@ function AddVehicleModal({ onClose, onAdded }: { onClose: () => void; onAdded: (
             <FormField label="Category" value={form.category} onChange={(v) => setForm({ ...form, category: v })} />
             <FormField label="Price ($)" type="number" value={form.price} onChange={(v) => setForm({ ...form, price: v })} />
             <FormField label="Quantity" type="number" value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-slate-700">Image URL (optional)</label>
+            <input
+              type="text"
+              value={form.image_url}
+              onChange={(e) => setForm({ ...form, image_url: e.target.value })}
+              placeholder="https://images.unsplash.com/..."
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"
+            />
           </div>
           {error && <div className="rounded-lg bg-red-50 px-3.5 py-2.5 text-sm text-red-700">{error}</div>}
           <div className="flex gap-3 pt-2">

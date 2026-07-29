@@ -1,4 +1,5 @@
 import { ShoppingBag, Pencil, Trash2, PackagePlus } from 'lucide-react';
+import { useState } from 'react';
 import type { Vehicle } from '@/lib/api';
 
 interface VehicleCardProps {
@@ -19,24 +20,54 @@ const categoryColors: Record<string, string> = {
   Electric: 'bg-teal-50 text-teal-700',
 };
 
+const carImages: Record<string, string> = {
+  'Toyota Camry': 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=250&fit=crop',
+  'Toyota RAV4': 'https://images.unsplash.com/photo-1568844293986-ca4c5c3b1c1c?w=400&h=250&fit=crop',
+  'Honda Civic': 'https://images.unsplash.com/photo-1606611013016-969c19ba27b8?w=400&h=250&fit=crop',
+  'Ford Mustang': 'https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=400&h=250&fit=crop',
+  'BMW X5': 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=250&fit=crop',
+};
+
+const defaultImages: Record<string, string> = {
+  Sedan: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?w=400&h=250&fit=crop',
+  SUV: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=250&fit=crop',
+  Coupe: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=250&fit=crop',
+  Truck: 'https://images.unsplash.com/photo-1583267746897-2cf415887172?w=400&h=250&fit=crop',
+  Hatchback: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=250&fit=crop',
+  Electric: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=400&h=250&fit=crop',
+};
+
 export default function VehicleCard({ vehicle, isAdmin, onPurchase, onEdit, onDelete, onRestock }: VehicleCardProps) {
+  const [imgError, setImgError] = useState(false);
   const outOfStock = vehicle.quantity <= 0;
   const badgeClass = categoryColors[vehicle.category] || 'bg-slate-100 text-slate-700';
+  
+  const carKey = `${vehicle.make} ${vehicle.model}`;
+  const imageUrl = vehicle.image_url || carImages[carKey] || defaultImages[vehicle.category] || 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=250&fit=crop';
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:shadow-lg hover:shadow-slate-200/60">
-      <div className="relative h-44 overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">
-        <div className="flex h-full items-center justify-center">
-          <span className="text-5xl font-black text-slate-300 tracking-tight">
-            {vehicle.make.charAt(0)}
-            {vehicle.model.charAt(0)}
-          </span>
-        </div>
+    <div className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:shadow-lg hover:shadow-slate-200/60 hover:-translate-y-0.5">
+      <div className="relative h-48 overflow-hidden">
+        {!imgError ? (
+          <img
+            src={imageUrl}
+            alt={`${vehicle.make} ${vehicle.model}`}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
+            <span className="text-5xl font-black text-slate-300 tracking-tight">
+              {vehicle.make.charAt(0)}{vehicle.model.charAt(0)}
+            </span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         <span className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-xs font-semibold ${badgeClass}`}>
           {vehicle.category}
         </span>
         {outOfStock && (
-          <span className="absolute right-3 top-3 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white">
+          <span className="absolute right-3 top-3 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
             Out of stock
           </span>
         )}

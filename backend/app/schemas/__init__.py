@@ -38,6 +38,7 @@ class VehicleCreate(BaseModel):
     category: str = Field(..., min_length=1, max_length=80)
     price: float = Field(..., gt=0)
     quantity: int = Field(..., ge=0)
+    image_url: str | None = None
 
 
 class VehicleUpdate(BaseModel):
@@ -46,6 +47,7 @@ class VehicleUpdate(BaseModel):
     category: str | None = Field(None, min_length=1, max_length=80)
     price: float | None = Field(None, gt=0)
     quantity: int | None = Field(None, ge=0)
+    image_url: str | None = None
 
 
 class VehicleOut(BaseModel):
@@ -55,6 +57,7 @@ class VehicleOut(BaseModel):
     category: str
     price: float
     quantity: int
+    image_url: str | None = None
 
     class Config:
         from_attributes = True
