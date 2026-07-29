@@ -1,0 +1,52 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\My\car-dealership\backend
+plugins: anyio-4.14.2, cov-7.1.0
+collected 43 items
+
+tests\test_auth.py .........                                             [ 20%]
+tests\test_inventory.py ...........                                      [ 46%]
+tests\test_search.py ..........                                          [ 69%]
+tests\test_vehicles.py .............                                     [100%]
+
+============================== warnings summary ===============================
+venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\My\car-dealership\backend\venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+app\core\config.py:4
+  C:\Users\My\car-dealership\backend\app\core\config.py:4: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+app\schemas\__init__.py:13
+  C:\Users\My\car-dealership\backend\app\schemas\__init__.py:13: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserOut(BaseModel):
+
+app\schemas\__init__.py:51
+  C:\Users\My\car-dealership\backend\app\schemas\__init__.py:51: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class VehicleOut(BaseModel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.0-final-0 _______________
+
+Name                                Stmts   Miss  Cover
+-------------------------------------------------------
+app\__init__.py                         0      0   100%
+app\core\__init__.py                    0      0   100%
+app\core\config.py                      8      0   100%
+app\core\database.py                   12      4    67%
+app\core\security.py                   38      4    89%
+app\main.py                            12      1    92%
+app\models\__init__.py                  2      0   100%
+app\models\user.py                      9      0   100%
+app\models\vehicle.py                  10      0   100%
+app\routers\__init__.py                 0      0   100%
+app\routers\auth.py                    26      0   100%
+app\routers\vehicles.py                38      1    97%
+app\schemas\__init__.py                32      0   100%
+app\services\__init__.py                1      0   100%
+app\services\inventory_service.py      53      0   100%
+-------------------------------------------------------
+TOTAL                                 241     10    96%
+======================= 43 passed, 4 warnings in 36.77s =======================
